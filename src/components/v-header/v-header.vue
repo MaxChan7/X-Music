@@ -21,9 +21,9 @@
     position: relative;
     height: 44px;
     text-align: center;
-    color: $color-theme;
+    color: $color-white;
     font-size: 0;
-    background-color: $color-header;
+    background-color: $color-theme;
     .title {
       display: inline-block;
       vertical-align: top;

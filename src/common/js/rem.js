@@ -1,43 +1,25 @@
-(function flexible (window, document) {
-  var docEl = document.documentElement
-  var dpr = window.devicePixelRatio || 1
+// Init devicePixelRatio
+export const initPixelRatio = () => {
+  const $html = document.documentElement;
+  let dpr = window.devicePixelRatio;
 
-  // adjust body font size
-  function setBodyFontSize () {
-    if (document.body) {
-      document.body.style.fontSize = (12 * dpr) + 'px'
-    } else {
-      document.addEventListener('DOMContentLoaded', setBodyFontSize)
-    }
+  if (dpr >= 3) dpr = 3;
+
+  if (dpr === 2) dpr = 2;
+
+  $html.setAttribute('data-dpr', dpr);
+};
+
+// Update Font Size
+export const updateWinFontSize = () => {
+  const designWidth = 750;
+  const defaultWidth = designWidth / 100;
+  let deviceWidth = document.body.clientWidth;
+  const $html = document.documentElement;
+  const htmlWidth = $html.clientWidth;
+  deviceWidth = (deviceWidth > htmlWidth) ? deviceWidth : htmlWidth;
+  if (deviceWidth > 750) {
+    deviceWidth = 750;
   }
-  setBodyFontSize();
-
-  // set 1rem = viewWidth / 10
-  function setRemUnit () {
-    var rem = docEl.clientWidth / 10
-    docEl.style.fontSize = rem + 'px'
-  }
-
-  setRemUnit()
-
-  // reset rem unit on page resize
-  window.addEventListener('resize', setRemUnit)
-  window.addEventListener('pageshow', function (e) {
-    if (e.persisted) {
-      setRemUnit()
-    }
-  })
-
-  // detect 0.5px supports
-  if (dpr >= 2) {
-    var fakeBody = document.createElement('body')
-    var testElement = document.createElement('div')
-    testElement.style.border = '.5px solid transparent'
-    fakeBody.appendChild(testElement)
-    docEl.appendChild(fakeBody)
-    if (testElement.offsetHeight === 1) {
-      docEl.classList.add('hairlines')
-    }
-    docEl.removeChild(fakeBody)
-  }
-}(window, document))
+  $html.style.fontSize = deviceWidth / defaultWidth + 'px';
+};
