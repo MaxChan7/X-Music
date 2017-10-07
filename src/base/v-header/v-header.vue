@@ -1,11 +1,13 @@
 <template>
   <div class="v-header">
-    <div class="left-icon" :class="leftIcon" @click="leftClick">
-      <i class="icon icon-nav_me"></i>
+    <div class="left-icon" @click="leftClick">
+      <i class="icon" :class="leftIcon"></i>
     </div>
-    <h1 class="title">Music</h1>
-    <div class="right-icon" :class="rightIcon" @click="rightClick">
-      <i class="icon icon-nav_search"></i>
+    <h1 class="title" v-html="title"></h1>
+    <div class="right-icon"
+      v-if="showRightIcon"
+      @click="rightClick">
+      <i class="icon" :class="rightIcon"></i>
     </div>
   </div>
 </template>
@@ -13,6 +15,14 @@
 <script type="text/babel">
   export default {
     props: {
+      title: {
+        type: String,
+        default: 'Music'
+      },
+      showRightIcon: {
+        type: Boolean,
+        default: false
+      },
       leftIcon: {
         type: String,
         default: 'icon-nav_back'

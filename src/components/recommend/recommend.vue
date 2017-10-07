@@ -3,49 +3,55 @@
     <v-header
       leftIcon="icon-nav_me"
       rightIcon="icon-nav_search"
+      :showRightIcon="true"
       @leftClick="leftClick"
       @rightClick="rightClick"
     >
     </v-header>
-    <scroll ref="scoll" class="recommend-content" :data="discList">
-      <div>
-        <div class="tab-wrap">
-          <div class="tab-bg"></div>
-          <ul class="tab">
-            <router-link tag="div" class="tab-link" to="/rank">
-              <i class="icon icon-home_paihang"></i>
-              <p>排行榜</p>
-            </router-link>
-            <router-link tag="div" class="tab-link" to="/singer">
-              <i class="icon icon-home_singer"></i>
-              <p>歌手</p>
-            </router-link>
-            <router-link tag="div" class="tab-link" to="/history">
-              <i class="icon icon-home_recent"></i>
-              <p>最近播放</p>
-            </router-link>
-            <router-link tag="div" class="tab-link" to="/favorite">
-              <i class="icon icon-home_collect"></i>
-              <p>收藏</p>
-            </router-link>
-          </ul>
+    <div class="recommend-wrap">
+      <scroll ref="scoll" class="recommend-content" :data="discList">
+        <div>
+          <div class="tab-wrap">
+            <div class="tab-bg"></div>
+            <ul class="tab">
+              <router-link tag="div" class="tab-link" to="/rank">
+                <i class="icon icon-home_paihang"></i>
+                <p>排行榜</p>
+              </router-link>
+              <router-link tag="div" class="tab-link" to="/singer">
+                <i class="icon icon-home_singer"></i>
+                <p>歌手</p>
+              </router-link>
+              <router-link tag="div" class="tab-link" to="/history">
+                <i class="icon icon-home_recent"></i>
+                <p>最近播放</p>
+              </router-link>
+              <router-link tag="div" class="tab-link" to="/favorite">
+                <i class="icon icon-home_collect"></i>
+                <p>收藏</p>
+              </router-link>
+            </ul>
+          </div>
+          <div  class="recommend-list">
+            <h2>热门歌单</h2>
+            <ul>
+              <li v-for="item in discList">
+                <div class="img">
+                  <img v-lazy="item.imgurl" :alt="item.dissname">
+                </div>
+                <div class="text">
+                  <div class="disc-name" v-html="item.dissname"></div>
+                  <div class="creator" v-html="item.creator.name"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div  class="recommend-list">
-          <h2>热门歌单</h2>
-          <ul>
-            <li v-for="item in discList">
-              <div class="img">
-                <img v-lazy="item.imgurl" :alt="item.dissname">
-              </div>
-              <div class="text">
-                <div class="disc-name" v-html="item.dissname"></div>
-                <div class="creator" v-html="item.creator.name"></div>
-              </div>
-            </li>
-          </ul>
+        <div class="loading-container" v-show="!discList.length">
+          <loading></loading>
         </div>
-      </div>
-    </scroll>
+      </scroll>
+    </div>
   </div>
 </template>
 
@@ -54,6 +60,7 @@ import VHeader from '@/base/v-header/v-header'
 import Scroll from '@/base/scroll/scroll'
 import {ERR_OK} from '@/api/config'
 import {getDiscList} from '@/api/recommond'
+import Loading from '@/base/loading/loading'
 
 export default {
   data() {
@@ -81,7 +88,8 @@ export default {
   },
   components: {
     VHeader,
-    Scroll
+    Scroll,
+    Loading
   }
 }
 </script>
@@ -89,15 +97,16 @@ export default {
 <style scoped lang="scss">
 @import "~common/css/variable";
 
-.recommend {
+.recommend-wrap {
   position: absolute;
-  width: 100%;
-  top: 0;
+  top: 44px;
   bottom: 0;
+  width: 100%;
   background-color: $color-theme;
   .recommend-content {
     height: 100%;
     overflow: hidden;
+    background-color: $color-background;
     .tab-wrap {
       position: relative;
       height: 3.3rem;
@@ -180,6 +189,12 @@ export default {
 
         }
       }
+    }
+    .loading-container {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 }
