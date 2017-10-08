@@ -7,7 +7,7 @@
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="play-wrapper">
         <div ref="playBtn" v-show="songs.length>0" class="play" @click="random">
-          <i class="icon-shunxu"></i>
+          <i class="icon-play"></i>
           <span class="text">播放全部</span>
         </div>
       </div>
@@ -206,7 +206,7 @@
           color: $color-white;
           border-radius: 100px;
           font-size: 0;
-          .icon-shunxu {
+          .icon-play {
             display: inline-block;
             vertical-align: middle;
             margin-right: 6px;
