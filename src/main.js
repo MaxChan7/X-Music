@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import Fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
+import store from './store'
 import {updateWinFontSize, initPixelRatio} from '@/common/js/rem.js'
 
 window.addEventListener('resize', () => {
@@ -25,5 +26,6 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

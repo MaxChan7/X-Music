@@ -220,10 +220,10 @@ export default {
       .item {
         padding: 3px;
         line-height: 1;
-        color: $color-text-l;
+        color: $color-text-d;
         font-size: $font-size-small;
         &.current {
-          color: $color-theme;
+          color: $color-text-l;
         }
       }
   }

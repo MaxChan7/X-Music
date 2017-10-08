@@ -71,8 +71,8 @@
     }
     .icon {
       display: block;
-      padding: .25rem;
-      font-size: $font-size-large-x;
+      padding: 12px;
+      font-size: 20px;
       color: $color-white;
     }
   }

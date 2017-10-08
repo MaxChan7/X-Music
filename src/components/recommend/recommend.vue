@@ -124,7 +124,7 @@ export default {
         top: .3rem;
         left: 50%;
         transform: translate3d(-50%,0,0);
-        width: 7.1rem;
+        width: 95%;
         height: 2.5rem;
         padding: 0 .4rem;
         border-radius: 0.1rem;
