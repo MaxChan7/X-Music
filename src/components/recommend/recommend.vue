@@ -137,7 +137,7 @@ export default {
           padding: .52rem 0;
           .icon {
             display: block;
-            color: $color-tab-icon;
+            color: $color-sub-theme;
             font-size: $font-size-tab-icon;
           }
         }
