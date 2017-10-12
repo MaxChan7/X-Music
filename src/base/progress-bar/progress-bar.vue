@@ -1,9 +1,13 @@
 <template>
-  <div class="progress-bar" ref="progressBar">
+  <div class="progress-bar" ref="progressBar" @click="progressBarClick">
     <div class="bar-inner">
       <div class="progress" ref="progress"></div>
       <div class="progress-btn-wrap">
-        <div class="progress-btn" ref="progressBtn"></div>
+        <div class="progress-btn" ref="progressBtn"
+          @touchstart.prevent="progressTouchStart"
+          @touchmove.prevent="progressTouchMove"
+          @touchend.prevent="progressTouchEnd"
+        ></div>
       </div>
     </div>
   </div>
@@ -24,11 +28,50 @@ export default {
   },
   watch: {
     percent(newVal) {
-      const BarWidth = this.$refs.progressBar.clientWidth - progressBtnWidth;
-      const offetWidth = newVal * BarWidth;
-
-      this.$refs.progress.style.width = `${offetWidth}px`;
-      this.$refs.progressBtn.style[transform] = `translate3d(${offetWidth}px, 0, 0)`;
+      if (newVal >= 0 && !this.touch.initiated) {
+        const BarWidth = this.$refs.progressBar.clientWidth - progressBtnWidth;
+        const offetWidth = newVal * BarWidth;
+        this._offset(offetWidth);
+      }
+    }
+  },
+  created() {
+    this.touch = {};
+  },
+  methods: {
+    progressTouchStart(e) {
+      this.touch.initiated = true;
+      this.touch.startX = e.touches[0].pageX;
+      this.touch.left = this.$refs.progress.clientWidth;
+    },
+    progressTouchMove(e) {
+      if (!this.touch.initiated) {
+        return
+      }
+      const deltaX = e.touches[0].pageX - this.touch.startX;
+      const offetWidth = Math.min(this.$refs.progressBar.clientWidth - progressBtnWidth, Math.max(0, this.touch.left + deltaX));
+      this._offset(offetWidth);
+    },
+    progressTouchEnd() {
+      this.touch.initiated = false;
+      this._triggerPercent();
+    },
+    progressBarClick(e) {
+      const rect = this.$refs.progressBar.getBoundingClientRect();
+      const offsetWidth = e.pageX - rect.left;
+      this._offset(offsetWidth);
+      // 这里当我们点击 progressBtn 的时候，e.offsetX 获取不对
+      // this._offset(e.offsetX)
+      this._triggerPercent();
+    },
+    _triggerPercent() {
+      const barWidth = this.$refs.progressBar.clientWidth - progressBtnWidth;
+      const percent = this.$refs.progress.clientWidth / barWidth;
+      this.$emit('percentChange', percent);
+    },
+    _offset(offsetWidth) {
+      this.$refs.progress.style.width = `${offsetWidth}px`
+      this.$refs.progressBtn.style[transform] = `translate3d(${offsetWidth}px,0,0)`
     }
   }
 
