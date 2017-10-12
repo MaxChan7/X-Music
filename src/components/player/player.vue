@@ -62,7 +62,9 @@
           <p v-html="currentSong.singer"></p>
         </div>
         <div class="control">
-          <i class="icon" :class="playIcon" @click.stop="togglePlaying"></i>
+          <progress-circle :radius="radius" :percent="percent">
+            <i class="icon" :class="playIcon" @click.stop="togglePlaying"></i>
+          </progress-circle>
         </div>
         <div class="control">
           <i class="icon icon-list"></i>
@@ -76,12 +78,14 @@
 <script type="text/babel">
 import {mapGetters, mapMutations} from 'vuex'
 import ProgressBar from '@/base/progress-bar/progress-bar'
+import ProgressCircle from '@/base/progress-circle/progress-circle'
 
 export default {
   data() {
     return {
       songReady: false,
-      currentTime: 0
+      currentTime: 0,
+      radius: 34
     }
   },
   computed: {
@@ -193,7 +197,8 @@ export default {
     })
   },
   components: {
-    ProgressBar
+    ProgressBar,
+    ProgressCircle
   }
 }
 </script>
@@ -378,7 +383,7 @@ export default {
     }
     .cd {
       padding-left: 15px;
-      flex: 0 0 50px;
+      flex: 0 0 45px;
       img {
         display: block;
         width: 100%;
@@ -406,11 +411,15 @@ export default {
       }
     }
     .control {
-      display: flex;
-      flex: 0 0 30px;
-      width: 32px;
+      position: relative;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
       padding: 0 10px;
       .icon {
+        position: absolute;
+        top: 1px;
+        left: 1px;
         font-size: 32px;
       }
     }
