@@ -6,9 +6,9 @@
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="play-wrapper">
-        <div ref="playBtn" v-show="songs.length>0" class="play" @click="random">
+        <div ref="playBtn" v-show="songs.length>0" class="play" @click="randomPlayAll">
           <i class="icon-play"></i>
-          <span class="text">播放全部</span>
+          <span class="text">随机播放全部</span>
         </div>
       </div>
       <div class="filter" ref="filter"></div>
@@ -97,7 +97,7 @@
           index
         })
       },
-      random() {
+      randomPlayAll() {
         this.randomPlay({
           list: this.songs
         })
@@ -215,7 +215,7 @@
           .text {
             display: inline-block;
             vertical-align: middle;
-            font-size: $font-size-medium-x;
+            font-size: $font-size-medium;
           }
         }
       }
