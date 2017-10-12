@@ -41,10 +41,10 @@ export default {
   svg {
     position: absolute;
     circle {
-      stroke-width: 4px;
+      stroke-width: 6px;
       transform-origin: center;
       &.progress-bar {
-        transform: scale(0.95) rotate(-90deg);
+        transform: scale(0.9) rotate(-90deg);
         stroke: #dc041b;
       }
     }

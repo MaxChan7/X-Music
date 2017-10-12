@@ -418,9 +418,9 @@ export default {
       padding: 0 10px;
       .icon {
         position: absolute;
-        top: 1px;
-        left: 1px;
-        font-size: 32px;
+        top: 2px;
+        left: 2px;
+        font-size: 30px;
       }
     }
   }
