@@ -91,7 +91,7 @@ export default {
       return hot.concat(ret)
     },
     leftClick() {
-      this.$router.go(-1)
+      this.$router.back()
     },
     ...mapMutations({
       setSinger: 'SET_SINGER'
