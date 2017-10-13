@@ -20,6 +20,9 @@
             </ul>
           </li>
         </ul>
+        <div class="loading-container" v-show="!rankList.length">
+          <loading></loading>
+        </div>
       </scroll>
     </div>
   </div>
@@ -27,6 +30,7 @@
 
 <script type="text/babel">
 import VHeader from '@/base/v-header/v-header'
+import Loading from '@/base/loading/loading'
 import Scroll from '@/base/scroll/scroll'
 import {getRankList} from '@/api/rank'
 import {ERR_OK} from '@/api/config'
@@ -67,7 +71,8 @@ export default {
   },
   components: {
     VHeader,
-    Scroll
+    Scroll,
+    Loading
   }
 }
 </script>
@@ -119,6 +124,12 @@ export default {
             line-height: 26px;
           }
         }
+      }
+      .loading-container {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
   }
