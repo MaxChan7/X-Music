@@ -448,14 +448,18 @@ export default {
           padding-right: 1rem;
           background: rgba(24, 27, 44, .8);
           .song-info {
-            padding: .24rem 0;
+            position: relative;
+            top: 50%;
+            left: 0;
+            transform: translate3d(0,-50%,0);
             h2 {
-              margin-bottom: .15rem;
+              line-height: 1.5;
               font-size: $font-size-medium-x;
               color: $color-white;
               @include no-wrap;
             }
             p {
+              line-height: 1.5;
               font-size: $font-size-small;
               color: $color-text-ll;
               @include no-wrap;
