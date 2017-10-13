@@ -179,9 +179,9 @@
     .title {
       position: absolute;
       top: 0;
-      left: 0;
+      left: 11%;
       z-index: 40;
-      width: 100%;
+      width: 78%;
       @include no-wrap;
       text-align: center;
       line-height: 44px;
