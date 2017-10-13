@@ -8,8 +8,8 @@
       @rightClick="rightClick"
     >
     </v-header>
-    <div class="recommend-wrap">
-      <scroll ref="scoll" class="recommend-content" :data="discList">
+    <div class="recommend-wrap" ref="recommend">
+      <scroll ref="scroll" class="recommend-content" :data="discList">
         <div>
           <div class="tab-wrap">
             <div class="tab-bg"></div>
@@ -61,17 +61,30 @@ import Scroll from '@/base/scroll/scroll'
 import {ERR_OK} from '@/api/config'
 import {getDiscList} from '@/api/recommond'
 import Loading from '@/base/loading/loading'
+import {playlistMixin} from '@/common/js/mixin'
+import {mapGetters} from 'vuex'
 
 export default {
+  mixins: [playlistMixin],
   data() {
     return {
       discList: []
     }
   },
+  computed: {
+    ...mapGetters([
+      'playlist'
+    ])
+  },
   created() {
     this._getDiscList();
   },
   methods: {
+    handlePlaylist() {
+      const bottom = this.playlist.length > 0 ? '60px' : '';
+      this.$refs.recommend.style.bottom = bottom;
+      this.$refs.scroll.refresh();
+    },
     _getDiscList() {
       getDiscList().then(_ => {
         if (_.code === ERR_OK) {
