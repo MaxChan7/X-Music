@@ -2,8 +2,8 @@
   <div class="song-list">
     <ul>
       <li @click="selectItem(song, index)" class="item" v-for="(song, index) in songs">
-        <div class="rank" v-show="rank">
-          <span class="text" v-text="getRankText(index)"></span>
+        <div class="rank-text" v-show="rank">
+          <span class="text" v-text="index + 1"></span>
         </div>
         <div class="content">
           <h2 class="name">{{song.name}}</h2>
@@ -32,9 +32,6 @@
       },
       getDesc(song) {
         return `${song.singer}·${song.album}`
-      },
-      getRankText(index) {
-        return index + 1
       }
     }
   }
@@ -51,15 +48,13 @@
       box-sizing: border-box;
       height: 64px;
       font-size: $font-size-medium;
-      .rank {
+      .rank-text {
         flex: 0 0 25px;
         width: 25px;
         margin-right: 30px;
         text-align: center;
-        .text {
-          color: $color-theme;
-          font-size: $font-size-large;
-        }
+        color: $color-text;
+        font-size: $font-size-large;
       }
       .content {
         flex: 1;
