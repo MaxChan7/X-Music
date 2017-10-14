@@ -8,7 +8,7 @@
     <div class="rank-list-wrap" ref="ranklist">
       <scroll class="rank-list" :data="rankList" ref="scroll">
         <ul>
-          <li class="item" v-for="item in rankList">
+          <li class="item" v-for="item in rankList" @click="selectItem(item)">
             <div class="rank-img">
               <img width="100" height="100" v-lazy="item.picUrl"/>
             </div>
@@ -25,6 +25,7 @@
         </div>
       </scroll>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -34,7 +35,7 @@ import Loading from '@/base/loading/loading'
 import Scroll from '@/base/scroll/scroll'
 import {getRankList} from '@/api/rank'
 import {ERR_OK} from '@/api/config'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 import {playlistMixin} from '@/common/js/mixin'
 
 export default {
@@ -58,6 +59,12 @@ export default {
       this.$refs.ranklist.style.bottom = bottom;
       this.$refs.scroll.refresh();
     },
+    selectItem(item) {
+      this.$router.push({
+        path: `/rank/${item.id}`
+      });
+      this.setRankList(item);
+    },
     leftClick() {
       this.$router.back();
     },
@@ -67,7 +74,10 @@ export default {
           this.rankList = res.data.topList;
         }
       })
-    }
+    },
+    ...mapMutations({
+      'setRankList': 'SET_RANK_LIST'
+    })
   },
   components: {
     VHeader,

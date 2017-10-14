@@ -33,6 +33,12 @@ const Rank = (resolve) => {
   })
 }
 
+const RankDetail = (resolve) => {
+  import('components/rank-detail/rank-detail').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
@@ -61,7 +67,13 @@ export default new Router({
     },
     {
       path: '/rank',
-      component: Rank
+      component: Rank,
+      children: [
+        {
+          path: ':id',
+          component: RankDetail
+        }
+      ]
     }
   ]
 })
