@@ -12,3 +12,15 @@
     background-image: url($url + "@3x.png");
   }
 }
+
+@mixin extend-click() {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+  }
+}
