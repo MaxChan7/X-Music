@@ -39,6 +39,12 @@ const RankDetail = (resolve) => {
   })
 }
 
+const Search = (resolve) => {
+  import('components/search/search').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
@@ -72,6 +78,16 @@ export default new Router({
         {
           path: ':id',
           component: RankDetail
+        }
+      ]
+    },
+    {
+      path: '/search',
+      component: Search,
+      children: [
+        {
+          path: ':id',
+          component: SingerDetail
         }
       ]
     }
