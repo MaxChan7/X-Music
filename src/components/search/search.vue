@@ -4,30 +4,35 @@
       <i class="icon-nav_back" @click="back"></i>
       <search-box ref="searchBox" @query="onQueryChange"></search-box>
     </div>
-    <div class="shortcut-wrap" v-show="!query">
-      <div class="hot-wrap">
-        <h1 class="title">热门搜索</h1>
-        <ul>
-          <li @click="addQuery(item.k)" class="item" v-for="item in hotKey">
-            <span>{{item.k}}</span>
-          </li>
-        </ul>
-      </div>
-      <div class="search-history" v-show="searchHistory.length">
-        <h1 class="title">
-          <span class="text">搜索历史</span>
+    <div class="shortcut-wrap" ref="shortcutWrap" v-show="!query">
+      <scroll class="shortcut" ref="shortcut" :data="shortcutData">
+        <div>
+          <div class="hot-wrap">
+            <h1 class="title">热门搜索</h1>
+            <ul>
+              <li @click="addQuery(item.k)" class="item" v-for="item in hotKey">
+                <span>{{item.k}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="search-history" v-show="searchHistory.length">
+            <h1 class="title">
+              <span class="text">搜索历史</span>
 
-          <span class="clear" @click="clearAllHistory">
-            <i class="icon-delete_all"></i>
-          </span>
-        </h1>
+              <span class="clear" @click="showConfirm">
+                <i class="icon-delete_all"></i>
+              </span>
+            </h1>
 
-        <search-list :searches="searchHistory" @select="addQuery" @delete="deleteHistory"></search-list>
-      </div>
+            <search-list :searches="searchHistory" @select="addQuery" @delete="deleteHistory"></search-list>
+          </div>
+        </div>
+      </scroll>
     </div>
     <div class="search-result" v-show="query" ref="searchResult">
       <suggest class="search-result-list" ref="suggest" :query="query" @listScroll="blurInput" :showSinger="showSinger" @select="saveSearch"></suggest>
     </div>
+    <confirm ref="confirm" @confirm="clearAllHistory" text="是否删除所有搜索历史？" confirmBtnText="清空"></confirm>
     <router-view></router-view>
   </div>
 </template>
@@ -40,6 +45,8 @@ import Suggest from '@/components/suggest/suggest'
 import {mapGetters, mapActions} from 'vuex'
 import {playlistMixin} from '@/common/js/mixin'
 import SearchList from '@/base/search-list/search-list'
+import Confirm from '@/base/confirm/confirm'
+import Scroll from '@/base/scroll/scroll'
 
 export default {
   mixins: [playlistMixin],
@@ -52,20 +59,36 @@ export default {
     }
   },
   computed: {
+    shortcutData() {
+      return this.hotKey.concat(this.searchHistory)
+    },
     ...mapGetters([
       'playlist',
       'searchHistory'
     ])
+  },
+  watch: {
+    // 解决添加歌曲后不能滚动的问题
+    query(newVal) {
+      if (!newVal) {
+        setTimeout(() => {
+          this.$refs.shortcut.refresh()
+        }, 20)
+      }
+    }
   },
   created() {
     this._getHotKey();
   },
   methods: {
     handlePlaylist() {
-      let bottom = this.playlist.length > 0 ? '60px' : ''
+      let bottom = this.playlist.length > 0 ? '60px' : '';
 
-      this.$refs.searchResult.style.bottom = bottom
-      this.$refs.suggest.refresh()
+      this.$refs.shortcutWrap.style.bottom = bottom;
+      this.$refs.shortcut.refresh();
+
+      this.$refs.searchResult.style.bottom = bottom;
+      this.$refs.suggest.refresh();
     },
     back() {
       this.$router.back();
@@ -88,6 +111,9 @@ export default {
     clearAllHistory() {
       this.clearHistory()
     },
+    showConfirm() {
+      this.$refs.confirm.show();
+    },
     _getHotKey() {
       getHotKey().then((res) => {
         if (res.code === ERR_OK) {
@@ -104,7 +130,9 @@ export default {
   components: {
     SearchBox,
     Suggest,
-    SearchList
+    SearchList,
+    Confirm,
+    Scroll
   }
 }
 </script>
@@ -134,6 +162,10 @@ export default {
     top: 44px;
     bottom: 0;
     width: 100%;
+    .shortcut {
+      height: 100%;
+      overflow: hidden;
+    }
     .hot-wrap {
       padding: .2rem .2rem 0 .2rem;
       background: $color-white;
@@ -152,7 +184,7 @@ export default {
           line-height: .58rem;
           padding: 0 .2rem;
           margin: 0 .2rem .2rem 0;
-          border: .01rem solid $color-text-d;
+          border: 1px solid $color-text-d;
           border-radius: .3rem;
           font-size: $font-size-medium;
           color: $color-text;
@@ -168,7 +200,6 @@ export default {
       align-items: center;
       height: 40px;
       font-size: $font-size-medium;
-      color: $color-text-l;
       .text {
         flex: 1;
       }
