@@ -17,7 +17,7 @@
     props: {
       title: {
         type: String,
-        default: 'Music'
+        default: 'X-Music'
       },
       showRightIcon: {
         type: Boolean,
