@@ -42,27 +42,20 @@
 import Scroll from '@/base/scroll/scroll'
 import Confirm from '@/base/confirm/confirm'
 import {playMode} from '@/common/js/config'
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+import {mapActions} from 'vuex'
+import {playerMixin} from '@/common/js/mixin'
 
 export default {
+  mixins: [playerMixin],
   data() {
     return {
       showFlag: false
     }
   },
   computed: {
-    iconMode () {
-      return this.mode === playMode.sequence ? 'icon-shunxu' : this.mode === playMode.random ? 'icon-suiji' : 'icon-danqu'
-    },
     modeText() {
       return this.mode === playMode.sequence ? '顺序播放' : this.mode === playMode.random ? '随机播放' : '单曲循环'
-    },
-    ...mapGetters([
-      'sequenceList',
-      'currentSong',
-      'mode',
-      'playlist'
-    ])
+    }
   },
   watch: {
     currentSong(newVal, oldVal) {
@@ -96,10 +89,6 @@ export default {
     getCurrentIcon(item) {
       return this.currentSong.id === item.id ? 'icon-play' : ''
     },
-    changeMode() {
-      let mode = (this.mode + 1) % 3
-      this.setMode(mode)
-    },
     scrollToCurrent(current) {
       const index = this.sequenceList.findIndex((song) => {
         return current.id === song.id;
@@ -118,11 +107,6 @@ export default {
     clearSongs() {
       this.deleteSongList();
     },
-    ...mapMutations({
-      setCurrentIndex: 'SET_CURRENT_INDEX',
-      setMode: 'SET_PLAY_MODE',
-      setPlayingState: 'SET_PLAYING_STATE'
-    }),
     ...mapActions([
       'deleteSong',
       'deleteSongList'
