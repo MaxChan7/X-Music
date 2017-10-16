@@ -66,7 +66,7 @@
               <i class="icon-next" @click="next"></i>
             </div>
             <div class="icon icon-right">
-              <i class="icon-list"></i>
+              <i class="icon-list" @click="showPlaylist"></i>
             </div>
           </div>
         </div>
@@ -87,10 +87,11 @@
           </progress-circle>
         </div>
         <div class="control">
-          <i class="icon icon-list"></i>
+          <i class="icon icon-list" @click.stop="showPlaylist"></i>
         </div>
       </div>
     </transition>
+    <playlist ref="playlist"></playlist>
     <audio ref="audio" :src="currentSong.url" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
   </div>
 </template>
@@ -104,6 +105,7 @@ import {shuffle} from '@/common/js/util'
 import Lyric from 'lyric-parser'
 import Scroll from '@/base/scroll/scroll'
 import {prefixStyle} from '@/common/js/dom'
+import Playlist from '@/components/playlist/playlist'
 
 const transform = prefixStyle('transform');
 const transitionDuration = prefixStyle('transitionDuration');
@@ -147,6 +149,9 @@ export default {
   },
   watch: {
     currentSong(newVal, oldVal) {
+      if (!newVal.id) {
+        return
+      }
       if (newVal.id === oldVal.id) {
         return
       }
@@ -351,6 +356,9 @@ export default {
       this.$refs.info.style[transitionDuration] = `${time}ms`;
       this.touch.initiated = false;
     },
+    showPlaylist() {
+      this.$refs.playlist.show();
+    },
     _pad(num, n = 2) {
       let len = num.toString().length
       while (len < n) {
@@ -370,7 +378,8 @@ export default {
   components: {
     ProgressBar,
     ProgressCircle,
-    Scroll
+    Scroll,
+    Playlist
   }
 }
 </script>
