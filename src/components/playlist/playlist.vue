@@ -19,8 +19,8 @@
 
               <span class="text">{{item.name}}</span>
 
-              <span class="like">
-                <i class="icon-collect"></i>
+              <span class="like" @click.stop="toggleFavorite(item)">
+                <i :class="getFavoriteIcon(item)"></i>
               </span>
 
               <span class="delete" @click.stop="deleteOne(item)">
@@ -202,8 +202,11 @@ export default {
           margin-right: 15px;
           font-size: $font-size-medium;
           color: $color-theme;
-          .icon-favorite {
-            color: $color-sub-theme;
+          .icon-collect {
+            color: $color-text-d;
+          }
+          .icon-collect_hl {
+            color: #ff6464;
           }
         }
         .delete {

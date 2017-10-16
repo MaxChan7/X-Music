@@ -21,3 +21,5 @@ export const disc = state => state.disc
 export const rankList = state => state.rankList
 
 export const searchHistory = state => state.searchHistory
+
+export const favoriteList = state => state.favoriteList

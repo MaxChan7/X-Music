@@ -25,7 +25,7 @@
                 <p v-html="currentSong.singer"></p>
               </div>
               <div class="favorite">
-                <i class="icon icon-collect"></i>
+                <i class="icon" :class="getFavoriteIcon(currentSong)" @click="toggleFavorite(currentSong)"></i>
               </div>
             </div>
           </div>
@@ -462,7 +462,7 @@ export default {
               &.icon-collect {
                 color: $color-white;
               }
-              &.icon-collect-hl {
+              &.icon-collect_hl {
                 color: #ff6464;
               }
             }

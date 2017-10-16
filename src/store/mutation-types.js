@@ -17,3 +17,6 @@ export const SET_DISC = 'SET_DISC'
 export const SET_RANK_LIST = 'SET_RANK_LIST'
 
 export const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY'
+
+export const SET_FAVORITE_LIST = 'SET_FAVORITE_LIST'
+
