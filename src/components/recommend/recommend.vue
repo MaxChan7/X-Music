@@ -1,9 +1,9 @@
 <template>
   <div class="recommend">
     <v-header
-      leftIcon="icon-nav_me"
-      rightIcon="icon-nav_search"
+      :showLeftIcon="false"
       :showRightIcon="true"
+      rightIcon="icon-nav_search"
       @leftClick="leftClick"
       @rightClick="rightClick"
     >

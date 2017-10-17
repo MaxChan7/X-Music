@@ -1,6 +1,6 @@
 <template>
   <div class="v-header">
-    <div class="left-icon" @click="leftClick">
+    <div class="left-icon" @click="leftClick" v-if="showLeftIcon">
       <i class="icon" :class="leftIcon"></i>
     </div>
     <h1 class="title" v-html="title"></h1>
@@ -18,6 +18,10 @@
       title: {
         type: String,
         default: 'X-Music'
+      },
+      showLeftIcon: {
+        type: Boolean,
+        default: true
       },
       showRightIcon: {
         type: Boolean,
