@@ -9,6 +9,7 @@
     >
     </v-header>
     <div class="recommend-wrap" ref="recommend">
+      <p class="tips" ref="tips">喜欢的话，给个Star噢~(づ￣ 3￣)づ</p>
       <scroll ref="scroll" class="recommend-content" :data="discList">
         <div>
           <div class="tab-wrap">
@@ -120,104 +121,117 @@ export default {
 <style scoped lang="scss">
 @import "~common/css/variable";
 
-.recommend-wrap {
-  position: absolute;
-  top: 44px;
-  bottom: 0;
-  width: 100%;
-  background-color: $color-theme;
-  .recommend-content {
-    height: 100%;
-    overflow: hidden;
-    background-color: $color-background;
-    .tab-wrap {
-      position: relative;
-      height: 3.3rem;
-      background-color: $color-background;
-      .tab-bg {
-        height: 1.8rem;
-        background-color: $color-theme;
-      }
-      .tab {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        position: absolute;
-        top: .3rem;
-        left: 50%;
-        transform: translate3d(-50%,0,0);
-        width: 95%;
-        height: 2.5rem;
-        padding: 0 .4rem;
-        border-radius: 0.1rem;
-        background-color: $color-white;
-        box-shadow: 0 0 10px 1px rgba(0,0,0,0.31);
-        .tab-link {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: .52rem 0;
-          .icon {
-            display: block;
-            color: $color-sub-theme;
-            font-size: $font-size-tab-icon;
-          }
-        }
-        p {
-          margin-top: .35rem;
-          text-align: center;
-          font-size: $font-size-medium;
-        }
-      }
-    }
-    .recommend-list {
-      padding: 0 .2rem;
-      background-color: $color-background;
-      h2 {
-        height: .4rem;
-        line-height: .4rem;
-        margin-bottom: .25rem;
-        padding-left: .15rem;
-        border-left: .05rem solid $color-theme;
-        font-size: $font-size-medium-x;
-      }
-      ul {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        li {
-          width: 3.45rem;
-          margin-bottom: .2rem;
-          .img {
-            height: 3.45rem;
-            img {
-              display: block;
-              width: 100%;
-            }
-          }
-          .text {
-            padding: .25rem;
-            line-height: 1.2;
-            background-color: $color-white;
-            .disc-name {
-              font-size: $font-size-medium
-            }
-            .creator {
-              margin-top: .05rem;
-              font-size: $font-size-small-s;
-              color: $color-text-d;
-            }
-          }
+.recommend {
+  height: 100%;
 
+  .recommend-wrap {
+    position: absolute;
+    top: 44px;
+    bottom: 0;
+    z-index: 10;
+    width: 100%;
+    background-color: $color-theme;
+    .tips {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      line-height: 24px;
+      font-size: $font-size-small;
+      text-align: center;
+    }
+    .recommend-content {
+      height: 100%;
+      overflow: hidden;
+      background-color: $color-background;
+      .tab-wrap {
+        position: relative;
+        height: 3.3rem;
+        background-color: $color-background;
+        .tab-bg {
+          height: 1.8rem;
+          background-color: $color-theme;
+        }
+        .tab {
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          position: absolute;
+          top: .3rem;
+          left: 50%;
+          transform: translate3d(-50%,0,0);
+          width: 95%;
+          height: 2.5rem;
+          padding: 0 .4rem;
+          border-radius: 0.1rem;
+          background-color: $color-white;
+          box-shadow: 0 0 10px 1px rgba(0,0,0,0.31);
+          .tab-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: .52rem 0;
+            .icon {
+              display: block;
+              color: $color-sub-theme;
+              font-size: $font-size-tab-icon;
+            }
+          }
+          p {
+            margin-top: .35rem;
+            text-align: center;
+            font-size: $font-size-medium;
+          }
         }
       }
-    }
-    .loading-container {
-      position: absolute;
-      width: 100%;
-      top: 50%;
-      transform: translateY(-50%);
+      .recommend-list {
+        padding: 0 .2rem;
+        background-color: $color-background;
+        h2 {
+          height: .4rem;
+          line-height: .4rem;
+          margin-bottom: .25rem;
+          padding-left: .15rem;
+          border-left: .05rem solid $color-theme;
+          font-size: $font-size-medium-x;
+        }
+        ul {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          li {
+            width: 3.45rem;
+            margin-bottom: .2rem;
+            .img {
+              height: 3.45rem;
+              img {
+                display: block;
+                width: 100%;
+              }
+            }
+            .text {
+              padding: .25rem;
+              line-height: 1.2;
+              background-color: $color-white;
+              .disc-name {
+                font-size: $font-size-medium
+              }
+              .creator {
+                margin-top: .05rem;
+                font-size: $font-size-small-s;
+                color: $color-text-d;
+              }
+            }
+
+          }
+        }
+      }
+      .loading-container {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
   }
 }
