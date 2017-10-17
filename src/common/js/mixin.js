@@ -1,6 +1,7 @@
 import {mapGetters, mapMutations, mapActions} from 'vuex'
 import {shuffle} from '@/common/js/util'
 import {playMode} from '@/common/js/config'
+import Song from '@/common/js/song'
 
 export const playlistMixin = {
   computed: {
@@ -86,6 +87,37 @@ export const playerMixin = {
     ...mapActions([
       'deleteFavoriteList',
       'saveFavoriteList'
+    ])
+  }
+}
+
+export const songlistMixin = {
+  computed: {
+    ...mapGetters([
+      'playlist'
+    ])
+  },
+  methods: {
+    back() {
+      this.$router.back();
+    },
+    selectSong(song) {
+      this.insertSong(new Song(song))
+    },
+    playAll(list) {
+      if (list.length === 0) {
+        return
+      }
+      list = list.map((song) => {
+        return new Song(song)
+      })
+      this.randomPlay({
+        list
+      })
+    },
+    ...mapActions([
+      'insertSong',
+      'randomPlay'
     ])
   }
 }

@@ -2,6 +2,9 @@
   <div class="song-list">
     <ul>
       <li @click="selectItem(song, index)" class="item" v-for="(song, index) in songs">
+        <div class="song-img" v-if="showImg">
+          <img v-lazy="song.image">
+        </div>
         <div class="rank-text" v-show="rank">
           <span class="text" v-text="index + 1"></span>
         </div>
@@ -22,6 +25,10 @@
         default: []
       },
       rank: {
+        type: Boolean,
+        default: false
+      },
+      showImg: {
         type: Boolean,
         default: false
       }
@@ -55,6 +62,13 @@
         text-align: center;
         color: $color-text;
         font-size: $font-size-large;
+      }
+      .song-img {
+        margin-right: 15px;
+        img {
+          width: 1rem;
+          height: 1rem;
+        }
       }
       .content {
         flex: 1;

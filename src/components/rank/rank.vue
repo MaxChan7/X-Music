@@ -1,7 +1,6 @@
 <template>
   <div class="rank">
     <v-header
-      leftIcon="icon-nav_back"
       @leftClick="leftClick"
       title="排行榜"
     ></v-header>

@@ -45,6 +45,18 @@ const Search = (resolve) => {
   })
 }
 
+const Favorite = (resolve) => {
+  import('components/favorite/favorite').then((module) => {
+    resolve(module)
+  })
+}
+
+const History = (resolve) => {
+  import('components/history/history').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   routes: [
     {
@@ -90,6 +102,14 @@ export default new Router({
           component: SingerDetail
         }
       ]
+    },
+    {
+      path: '/favorite',
+      component: Favorite
+    },
+    {
+      path: '/history',
+      component: History
     }
   ]
 })
