@@ -12,6 +12,9 @@
         </div>
       </scroll>
     </div>
+    <div class="no-result-wrap" v-show="!playHistory.length">
+      <no-result title="你还没有听过歌曲"></no-result>
+    </div>
   </div>
 </template>
 
@@ -19,6 +22,7 @@
 import VHeader from '@/base/v-header/v-header'
 import SongList from '@/base/song-list/song-list'
 import Scroll from '@/base/scroll/scroll'
+import NoResult from '@/base/no-result/no-result'
 import {mapGetters} from 'vuex'
 import {songlistMixin, playlistMixin} from '@/common/js/mixin'
 
@@ -44,7 +48,8 @@ export default {
   components: {
     VHeader,
     SongList,
-    Scroll
+    Scroll,
+    NoResult
   }
 }
 </script>
@@ -82,6 +87,12 @@ export default {
         padding: 0 15px;
       }
     }
+  }
+  .no-result-wrap {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
