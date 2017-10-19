@@ -173,7 +173,8 @@
     .suggest-item {
       display: flex;
       align-items: center;
-      padding-bottom: 20px;
+      padding-bottom: 15px;
+      line-height: 20px;
       .icon {
         flex: 0 0 30px;
         width: 30px;
