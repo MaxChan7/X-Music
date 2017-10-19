@@ -24,10 +24,10 @@
   text-align: center;
   .no-result-icon {
     width: 86px;
-    height: 90px;
+    height: 86px;
     margin: 0 auto;
     @include bg-image('no-result');
-    background-size: 86px 90px;
+    background-size: 86px 86px;
   }
   .no-result-text {
     margin-top: 30px;
